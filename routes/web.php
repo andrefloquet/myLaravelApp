@@ -16,3 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Main Menu's Rotes
+Route::get('/{page}', "MenuController@show");
