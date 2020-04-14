@@ -15,7 +15,7 @@ class ArticleController extends Controller
     public function index()
     {
         return view('blog.index', [
-            'articles' =>  Article::all()
+            'articles' =>  Article::latest()->paginate(2)
         ]);
     }
 
@@ -27,6 +27,7 @@ class ArticleController extends Controller
     public function create()
     {
         //
+        return view('blog.create');
     }
 
     /**
@@ -37,7 +38,15 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //return $request['title'] . " 1";
+
+        $article = new Article;
+        $article->title = $request['title'];
+        $article->excerpt = $request['excerpt'];
+        $article->body = $request['body'];
+        $article->save();
+
+        return redirect('blog.create');
     }
 
     /**
@@ -62,6 +71,9 @@ class ArticleController extends Controller
     public function edit($id)
     {
         //
+        return view('blog.edit', [
+            'article' =>  Article::find($id)
+        ]);
     }
 
     /**
@@ -73,7 +85,17 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //return $request['title'] . " 1";
+
+        $article = Article::find($id);
+        $article->title = $request['title'];
+        $article->excerpt = $request['excerpt'];
+        $article->body = $request['body'];
+        $article->save();
+
+        return view('blog.show', [
+            'article' =>  Article::find($id)
+        ]);        
     }
 
     /**
