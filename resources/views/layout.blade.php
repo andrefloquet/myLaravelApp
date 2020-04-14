@@ -13,5 +13,9 @@
         <section class="content">
             @yield("content")
         </section>
+        <br /><br />
+        <footer style="color: #343A40; text-align: center; ">
+            &copy; Copyrigth Andre Floquet
+        </footer>
     </body>
 </html>

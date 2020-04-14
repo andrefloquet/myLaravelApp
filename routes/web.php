@@ -13,9 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Home Pages
 Route::get('/', function () {
     return view('welcome');
 });
 
 // Main Menu's Rotes
-Route::get('/{page}', "MenuController@show");
+//Route::get('/{page}', "MenuController@show");
+
+Route::get('/about', function () {
+    return view('about');
+});
+
+// restful rotes
+Route::resource('/blog', "ArticleController");
