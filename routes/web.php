@@ -19,11 +19,9 @@ Route::get('/', function () {
 });
 
 // Main Menu's Rotes
-//Route::get('/{page}', "MenuController@show");
-
 Route::get('/about', function () {
     return view('about');
 });
 
 // restful rotes
-Route::resource('/blog', "ArticleController");
+Route::resource('/article', "ArticleController");

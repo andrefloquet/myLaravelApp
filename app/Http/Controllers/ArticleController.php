@@ -14,7 +14,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        return view('blog.index', [
+        return view('article.index', [
             'articles' =>  Article::latest()->paginate(2)
         ]);
     }
@@ -27,7 +27,7 @@ class ArticleController extends Controller
     public function create()
     {
         //
-        return view('blog.create');
+        return view('article.create');
     }
 
     /**
@@ -38,15 +38,15 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //return $request['title'] . " 1";
-
+/*
         $article = new Article;
         $article->title = $request['title'];
         $article->excerpt = $request['excerpt'];
         $article->body = $request['body'];
         $article->save();
-
-        return redirect('blog.create');
+*/        
+        Article::create($this->validateArticle());
+        return redirect(route('article.index'))->with('success', 'Article Inserted');
     }
 
     /**
@@ -55,11 +55,10 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Article $article)
     {
-        return view('blog.show', [
-            'article' =>  Article::find($id)
-        ]);        
+        //dd($article);
+        return view('article.show', compact('article'));       
     }
 
     /**
@@ -68,12 +67,9 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Article $article)
     {
-        //
-        return view('blog.edit', [
-            'article' =>  Article::find($id)
-        ]);
+        return view('article.edit', compact('article'));
     }
 
     /**
@@ -83,19 +79,10 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Article $article)
     {
-        //return $request['title'] . " 1";
-
-        $article = Article::find($id);
-        $article->title = $request['title'];
-        $article->excerpt = $request['excerpt'];
-        $article->body = $request['body'];
-        $article->save();
-
-        return view('blog.show', [
-            'article' =>  Article::find($id)
-        ]);        
+        $article->update($this->validateArticle());
+        return redirect($article->path())->with('success', 'Article Updated');
     }
 
     /**
@@ -104,8 +91,18 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Article $article)
     {
-        //
+        $article->delete();
+        return redirect(route('article.index'))->with('success', 'Article Deleted');
     }
+
+    protected function validateArticle()
+    {
+        return request()->validate([
+            'title' => 'required|max:255',
+            'excerpt' => 'required',
+            'body' => 'required'
+        ]);
+    }    
 }

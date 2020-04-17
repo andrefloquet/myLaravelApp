@@ -8,14 +8,18 @@
     </head>
     <body>
         <header>
-            @include("navbar")
+            @include("inc.navbar")
         </header>
         <section class="content">
-            @yield("content")
+            <div class="container">
+                @include("inc.messages")
+                @yield("content")
+            </div>
         </section>
         <br /><br />
-        <footer style="color: #343A40; text-align: center; ">
+        <!--footer style="color: #343A40; text-align: center; "-->
+        <footer style="text-align: center;">
             &copy; Copyrigth Andre Floquet
-        </footer>
+        </footer>     
     </body>
 </html>

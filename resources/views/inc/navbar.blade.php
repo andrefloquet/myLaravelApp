@@ -8,7 +8,7 @@
         <div class="navbar-nav">
             <a class="nav-item nav-link {{ Request::path() === '/' ? 'active': ''}}" href="/">Home</a>
             <a class="nav-item nav-link {{ Request::path() === 'about' ? 'active': ''}}" href="/about">About</a>
-            <a class="nav-item nav-link {{ Request::path() === 'blog' ? 'active': ''}}" href="/blog">Blog</a>
+            <a class="nav-item nav-link {{ Request::path() === 'article' ? 'active': ''}}" href="/article">Articles</a>
             <!-- a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a -->
         </div>
     </div>
